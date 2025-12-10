@@ -1,598 +1,595 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Cleonis - E-commerce Strategist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #212529;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            padding: 80px 60px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0, 153, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInDown 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.4);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            order: 2;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: rgba(255,255,255,0.95);
+            font-weight: 400;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .location {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .location:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .intro-card {
+            background: #fff;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            font-size: 20px;
+            line-height: 1.8;
+            color: #495057;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.3s; }
+        .stat-card:nth-child(2) { animation-delay: 0.4s; }
+        .stat-card:nth-child(3) { animation-delay: 0.5s; }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 153, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);
+            border-radius: 2px;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .expertise-card {
+            background: #fff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .expertise-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0, 153, 255, 0.15);
+            border-left-color: #00d4ff;
+        }
+
+        .expertise-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .expertise-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .expertise-desc {
+            font-size: 16px;
+            color: #6c757d;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            padding: 60px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(0, 153, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .highlight-box h2 {
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-box h2::after {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .highlight-text {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .portfolio-section {
+            background: #fff;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 153, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .portfolio-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 153, 255, 0.4);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            padding: 60px;
+            border-radius: 20px;
+            color: #fff;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .cta-section h2 {
+            color: #fff;
+        }
+
+        .cta-section h2::after {
+            background: #00d4ff;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            header {
+                padding: 60px 30px;
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .profile-photo {
+                width: 160px;
+                height: 160px;
+                order: 1;
+            }
+
+            .header-content {
+                order: 2;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            .intro-card, .highlight-box, .portfolio-section, .cta-section {
+                padding: 40px 30px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 42px;
+            }
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Kevin Cleonis - E-commerce Strategist&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #212529;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-font-smoothing: antialiased;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1200px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 60px 40px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 80px 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0, 153, 255, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeInDown 0.8s ease;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.profile-photo {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 180px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 180px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 5px solid rgba(255,255,255,0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 40px rgba(0,0,0,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>object-fit: cover;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>header::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: -50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>right: -50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 200%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 200%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: pulse 4s ease-in-out infinite;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 56px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: rgba(255,255,255,0.95);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 400;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.location {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.location:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.intro-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 40px rgba(0,0,0,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #495057;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeInUp 0.8s ease 0.2s both;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.intro-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-5px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0,0,0,0.12);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stats {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0,0,0,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeInUp 0.8s ease both;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-card:nth-child(1) { animation-delay: 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-card:nth-child(2) { animation-delay: 0.4s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-card:nth-child(3) { animation-delay: 0.5s; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-10px) scale(1.02);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 50px rgba(0, 153, 255, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: #00d4ff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-number {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 56px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-background-clip: text;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-text-fill-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-clip: text;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.stat-label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #6c757d;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeInUp 0.8s ease 0.6s both;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #212529;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>h2::after {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 35px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 20px rgba(0,0,0,0.06);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid transparent;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 15px 40px rgba(0, 153, 255, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left-color: #00d4ff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #212529;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-icon {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.expertise-desc {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #6c757d;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.7;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0, 153, 255, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-box::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: -50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: -50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 200%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 200%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>animation: rotate 20s linear infinite;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-box h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-box h2::after {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: rgba(255,255,255,0.95);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.portfolio-section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 40px rgba(0,0,0,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.portfolio-link {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 18px 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0, 153, 255, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.portfolio-link:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 15px 40px rgba(0, 153, 255, 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #212529 0%, #343a40 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0,0,0,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-section h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-section h2::after {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #00d4ff;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: rgba(255,255,255,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeInDown {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>from {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(-30px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>to {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeInUp {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>from {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(30px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>to {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>0%, 100% { transform: scale(1); opacity: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>50% { transform: scale(1.1); opacity: 0.8; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes rotate {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>from { transform: rotate(0deg); }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>to { transform: rotate(360deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>padding: 40px 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>padding: 60px 30px;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.profile-photo {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>width: 150px;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>height: 150px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.intro-card, .highlight-box, .portfolio-section, .cta-section {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>padding: 40px 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>h2 {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 28px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.expertise-grid {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.stat-number {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 42px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.scroll-indicator {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 9999;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: width 0.1s ease;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="scroll-indicator" id="scrollIndicator"&gt;&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;img src="https://i.ibb.co/N62nbCr/image.png" alt="Kevin Cleonis" class="profile-photo"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="header-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1&gt;Kevin Cleonis&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="subtitle"&gt;E-commerce Strategist · OnBuy Application&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="location"&gt;📍 Manchester, UK · Remote-ready&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="intro-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>E-commerce strategist with 7+ years of hands-on experience building and scaling Shopify and DTC brands across the UK and Europe. Currently supporting growth at Icy Bear Dental while bringing deep expertise from running my own consultancy and brands.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number"&gt;300+&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Brands Supported&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number"&gt;7&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Years Experience&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number"&gt;50+&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;Video Testimonials&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;Core Expertise&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="expertise-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;🎯&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Full-Funnel E-commerce</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Complete ownership from traffic acquisition through conversion, AOV optimization, and retention strategy&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;🛒&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Shopify &amp; DTC Ecosystem</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Store builds, CRO, landing pages, A/B testing, and performance analytics using Google Analytics&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;📱&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Multi-Channel Paid Media</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Strategic orchestration across Facebook, Instagram, TikTok, Snapchat, Google Ads, and influencer marketing&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;💼&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Commercial Leadership</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Translating business objectives into actionable roadmaps, campaigns, and experiments with founders&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;👥&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Agency &amp; Team Management</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Briefing, challenging, and managing external partners while maintaining focus on ROI&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;🤖&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>AI Integration Expertise</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Daily use of ChatGPT, Claude, Gemini, ToolScale, and Higgsfield combined with tools like Minea and PiPiAds&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="highlight-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;Business Impact&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="highlight-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Generated several million in online revenue for brands through strategic improvements in acquisition and onsite experience. Delivered measurable results through structured testing, bundle optimization, email flow enhancement, and performance dashboard development for faster decision-making.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="highlight-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Deep understanding of P&amp;L, unit economics, cash flow, and lifetime value. Having operated my own brands, I balance growth ambitions with sustainable economics and connect every marketing initiative to actual revenue and profit impact.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;What Sets Me Apart&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="expertise-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;⚡&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Adaptability &amp; Self-Sufficiency</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;7 years self-employed, comfortable with uncertainty and rapid learning. When facing new platforms or constraints, I study intensively and apply directly for results&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;🌐&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Remote Work Excellence</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Years of experience with international clients and teams. Comfortable with async communication, documentation, and maintaining alignment without constant meetings&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="expertise-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="expertise-icon"&gt;📊&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>Data-Driven Strategy</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="expertise-desc"&gt;Building performance dashboards and using analytics to drive faster, better decisions across the entire customer journey&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="portfolio-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;Portfolio &amp; References&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="expertise-desc" style="max-width: 700px; margin: 0 auto 30px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Case studies and 50+ video testimonials available showcasing work with businesses across Europe. These demonstrate real-world results and client satisfaction.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://kevincleonis.my.canva.site" target="_blank" class="portfolio-link"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>View Portfolio</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;→&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="cta-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;Ready to Contribute to OnBuy&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="cta-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>I'm excited about contributing to OnBuy as a customer-centric marketplace alternative in the UK and beyond. I see strong potential to apply my performance marketing, DTC strategy, and AI expertise to drive traffic growth, improve conversion across key categories, and create better experiences for both buyers and sellers.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Scroll progress indicator</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('scroll', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const scrollIndicator = document.getElementById('scrollIndicator');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const scrolled = (window.scrollY / windowHeight) * 100;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>scrollIndicator.style.width = scrolled + '%';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Smooth hover effects on cards</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.stat-card, .expertise-card').forEach(card =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>card.addEventListener('mouseenter', function() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>this.style.transform = 'translateY(-10px) scale(1.02)';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>card.addEventListener('mouseleave', function() {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>this.style.transform = 'translateY(0) scale(1)';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Kevin Cleonis</h1>
+                <div class="subtitle">E-commerce Strategist · OnBuy Application</div>
+                <div class="location">📍 Manchester, UK · Remote-ready</div>
+            </div>
+            <img src="https://i.ibb.co/N62nbCr/image.png" alt="Kevin Cleonis" class="profile-photo">
+        </header>
+
+        <div class="intro-card">
+            E-commerce strategist with 7+ years of hands-on experience building and scaling Shopify and DTC brands across the UK and Europe. Currently supporting growth at Icy Bear Dental while bringing deep expertise from running my own consultancy and brands.
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">300+</div>
+                <div class="stat-label">Brands Supported</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Video Testimonials</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Core Expertise</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">🎯</div>
+                        Full-Funnel E-commerce
+                    </div>
+                    <div class="expertise-desc">Complete ownership from traffic acquisition through conversion, AOV optimization, and retention strategy</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">🛒</div>
+                        Shopify & DTC Ecosystem
+                    </div>
+                    <div class="expertise-desc">Store builds, CRO, landing pages, A/B testing, and performance analytics using Google Analytics</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">📱</div>
+                        Multi-Channel Paid Media
+                    </div>
+                    <div class="expertise-desc">Strategic orchestration across Facebook, Instagram, TikTok, Snapchat, Google Ads, and influencer marketing</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">💼</div>
+                        Commercial Leadership
+                    </div>
+                    <div class="expertise-desc">Translating business objectives into actionable roadmaps, campaigns, and experiments with founders</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">👥</div>
+                        Agency & Team Management
+                    </div>
+                    <div class="expertise-desc">Briefing, challenging, and managing external partners while maintaining focus on ROI</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">🤖</div>
+                        AI Integration Expertise
+                    </div>
+                    <div class="expertise-desc">Daily use of ChatGPT, Claude, Gemini, ToolScale, and Higgsfield combined with tools like Minea and PiPiAds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h2>Business Impact</h2>
+            <p class="highlight-text">
+                Generated several million in online revenue for brands through strategic improvements in acquisition and onsite experience. Delivered measurable results through structured testing, bundle optimization, email flow enhancement, and performance dashboard development for faster decision-making.
+            </p>
+            <p class="highlight-text">
+                Deep understanding of P&L, unit economics, cash flow, and lifetime value. Having operated my own brands, I balance growth ambitions with sustainable economics and connect every marketing initiative to actual revenue and profit impact.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>What Sets Me Apart</h2>
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">⚡</div>
+                        Adaptability & Self-Sufficiency
+                    </div>
+                    <div class="expertise-desc">7 years self-employed, comfortable with uncertainty and rapid learning. When facing new platforms or constraints, I study intensively and apply directly for results</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">🌐</div>
+                        Remote Work Excellence
+                    </div>
+                    <div class="expertise-desc">Years of experience with international clients and teams. Comfortable with async communication, documentation, and maintaining alignment without constant meetings</div>
+                </div>
+                <div class="expertise-card">
+                    <div class="expertise-title">
+                        <div class="expertise-icon">📊</div>
+                        Data-Driven Strategy
+                    </div>
+                    <div class="expertise-desc">Building performance dashboards and using analytics to drive faster, better decisions across the entire customer journey</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-section">
+            <h2>Portfolio & References</h2>
+            <p class="expertise-desc" style="max-width: 700px; margin: 0 auto 30px;">
+                Case studies and 50+ video testimonials available showcasing work with businesses across Europe. These demonstrate real-world results and client satisfaction.
+            </p>
+            <a href="https://kevincleonis.my.canva.site" target="_blank" class="portfolio-link">
+                View Portfolio
+                <span>→</span>
+            </a>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Contribute to OnBuy</h2>
+            <p class="cta-text">
+                I'm excited about contributing to OnBuy as a customer-centric marketplace alternative in the UK and beyond. I see strong potential to apply my performance marketing, DTC strategy, and AI expertise to drive traffic growth, improve conversion across key categories, and create better experiences for both buyers and sellers.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollIndicator.style.width = scrolled + '%';
+        });
+
+        // Smooth hover effects on cards
+        document.querySelectorAll('.stat-card, .expertise-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
