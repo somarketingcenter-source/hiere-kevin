@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kevin Cleonis - E-commerce Strategist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,114 +13,162 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
+        :root {
+            --bg-light: #f5f5f7;
+            --bg-white: #ffffff;
+            --bg-dark: #1d1d1f;
+            --bg-card: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-light: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --border: rgba(0,0,0,0.08);
+            --shadow: 0 4px 24px rgba(0,0,0,0.08);
+            --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        html {
             scroll-behavior: smooth;
         }
 
-        /* Navigation */
-        nav {
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Progress Bar */
+        .progress {
             position: fixed;
             top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #34c759);
+            z-index: 9999;
+            transition: width 0.15s;
+        }
+
+        /* ============ NAVIGATION ============ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
             right: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
-            background: rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 80px;
+            transition: all 0.3s ease;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
         }
 
-        .nav-links {
+        .navbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            gap: 40px;
-            list-style: none;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
         }
 
-        .nav-links a {
-            color: #fff;
+        .navbar-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
             text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .navbar-logo span {
+            color: var(--accent);
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-link {
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 980px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .navbar-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-light);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
+        .navbar-link.active {
+            color: var(--accent);
+            background: rgba(0,113,227,0.08);
+        }
+
+        .navbar-cta {
+            margin-left: 16px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            background: var(--accent);
+            text-decoration: none;
+            border-radius: 980px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Mobile Menu Button */
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar-toggle span {
+            width: 24px;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            max-width: 1000px;
-            padding: 0 20px;
-        }
-
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            margin: 0 auto 30px;
-            border: 4px solid transparent;
-            background: linear-gradient(#000, #000) padding-box,
-                        linear-gradient(135deg, #667eea, #764ba2) border-box;
-            animation: float 6s ease-in-out infinite;
-            object-fit: cover;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes float {
@@ -126,657 +176,1212 @@
             50% { transform: translateY(-20px); }
         }
 
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideUp 1s ease;
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
         }
 
-        .hero h2 {
-            font-size: 28px;
-            font-weight: 400;
-            color: #888;
-            margin-bottom: 40px;
-            animation: slideUp 1s ease 0.2s backwards;
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+            display: flex;
+            align-items: center;
+            padding: 120px 80px;
+            padding-top: 160px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 18px 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            animation: slideUp 1s ease 0.4s backwards;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0,113,227,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
         }
 
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5);
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 120px 50px;
-            background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
-        }
-
-        .stats-grid {
-            max-width: 1200px;
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 100px;
+            max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            width: 100%;
         }
 
-        .stat-card {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            cursor: pointer;
+        .hero-content {
+            flex: 1;
+            max-width: 620px;
         }
 
-        .stat-card:hover {
-            background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: translateY(-10px);
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 24px;
+            padding: 8px 16px;
+            background: rgba(0,113,227,0.08);
+            border-radius: 100px;
         }
 
-        .stat-number {
-            font-size: 56px;
+        .hero h1 {
+            font-size: 64px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        .hero-description {
+            font-size: 17px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: block;
         }
 
         .stat-label {
-            font-size: 18px;
-            color: #888;
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
         }
 
-        /* Skills Section */
-        .skills {
-            padding: 120px 50px;
-            background: #000;
+        .hero-cta {
+            display: flex;
+            gap: 16px;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 80px;
-            background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .skills-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-card {
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 980px;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
         }
 
-        .skill-card:hover {
-            background: rgba(102, 126, 234, 0.05);
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: translateY(-10px);
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(0,113,227,0.4);
         }
 
-        .skill-icon {
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,113,227,0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+            border-color: rgba(0,0,0,0.15);
+        }
+
+        .hero-photo {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* ============ SECTIONS ============ */
+        .section {
+            padding: 140px 80px;
+        }
+
+        .section-white {
+            background: var(--bg-white);
+        }
+
+        .section-gray {
+            background: var(--bg-light);
+        }
+
+        .section-dark {
+            background: var(--bg-dark);
+            color: #fff;
+        }
+
+        .section-dark .section-title,
+        .section-dark .section-subtitle,
+        .section-dark .card-title,
+        .section-dark .card-text {
+            color: #fff;
+        }
+
+        .section-dark .card {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .section-dark .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .section-dark .card-text {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
             font-size: 48px;
+            font-weight: 700;
             margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============ CARDS ============ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============ SKILLS ============ */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .skill {
+            padding: 24px 28px;
+            border-radius: 14px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .skill:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(0,113,227,0.1);
         }
 
         .skill-title {
-            font-size: 24px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 15px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .skill-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ============ PROJECT ============ */
+        .project {
+            max-width: 1100px;
+            margin: 0 auto 100px;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .project:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-header {
+            padding: 56px;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(0,113,227,0.03) 0%, transparent 100%);
+        }
+
+        .project-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .project-description {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .project-body {
+            padding: 56px;
+        }
+
+        /* Project Hero Image */
+        .project-hero-image {
+            margin-top: 32px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .project-hero-image iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+        /* ============ HIGHLIGHTS ============ */
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .highlight {
+            padding: 28px;
+            background: var(--bg-light);
+            border-radius: 16px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .highlight-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .highlight-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============ MEDIA ============ */
+        .media-block {
+            margin: 40px 0;
+        }
+
+        .media-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+        }
+
+        .media-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: var(--shadow);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            width: 100%;
+        }
+
+        .video-container.mobile {
+            padding-bottom: 177.78%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ============ CAROUSEL ============ */
+        .carousel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .carousel-item {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .carousel-item iframe {
+            width: 100%;
+            height: 360px;
+            border: none;
+        }
+
+        /* ============ TESTIMONIALS ============ */
+        .testimonials {
+            padding: 160px 80px;
+            background: var(--bg-dark);
+            text-align: center;
             color: #fff;
         }
 
-        .skill-description {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #888;
+        .testimonials .section-eyebrow {
+            color: #34c759;
         }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .tag {
-            padding: 8px 16px;
-            background: rgba(102, 126, 234, 0.2);
-            border-radius: 20px;
-            font-size: 12px;
-            color: #667eea;
-            border: 1px solid rgba(102, 126, 234, 0.3);
-        }
-
-        /* Services Section */
-        .services {
-            padding: 120px 50px;
-            background: linear-gradient(180deg, #000 0%, #0a0a0a 100%);
-        }
-
-        .services-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            padding: 50px 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            border-color: rgba(102, 126, 234, 0.5);
-            transform: scale(1.05);
-        }
-
-        .service-number {
-            font-size: 72px;
+        .testimonials-number {
+            font-size: 96px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #fff 0%, #86868b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .testimonials-title {
+            font-size: 42px;
+            font-weight: 600;
             margin-bottom: 20px;
         }
 
-        .service-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #fff;
+        .testimonials-text {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
         }
 
-        .service-description {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #888;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 120px 50px;
-            background: #000;
-            text-align: center;
-        }
-
-        .contact-content {
+        .testimonials-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 56px;
+            text-align: left;
+        }
+
+        .testimonials-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .testimonials-card-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .testimonials-card-text {
+            font-size: 15px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+
+        .testimonials .media-wrapper {
+            max-width: 800px;
+            margin: 0 auto 48px;
+        }
+
+        /* ============ CONTACT ============ */
+        .contact {
+            padding: 140px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-light) 0%, #fff 100%);
         }
 
         .contact-title {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #fff 0%, #667eea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
         }
 
-        .contact-subtitle {
-            font-size: 22px;
-            color: #888;
-            margin-bottom: 50px;
+        .contact-text {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
         }
 
         .contact-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
-        .contact-button {
-            padding: 18px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-button:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            padding: 120px 50px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+        /* ============ FOOTER ============ */
+        .footer {
+            padding: 40px;
             text-align: center;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border);
         }
 
-        .testimonials-content {
-            max-width: 700px;
-            margin: 0 auto;
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-light);
         }
 
-        .testimonials-intro {
-            font-size: 20px;
-            color: #888;
-            margin-bottom: 40px;
-            line-height: 1.6;
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 52px; }
+            .hero-inner { gap: 60px; }
+            .hero-photo { width: 340px; height: 340px; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .carousel { grid-template-columns: repeat(2, 1fr); }
+            .section-title { font-size: 40px; }
+            .navbar { padding: 0 40px; }
         }
 
-        .testimonials-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            padding: 20px 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
-        }
-
-        .testimonials-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
-        }
-
-        .testimonials-button .arrow {
-            font-size: 24px;
-            transition: transform 0.3s ease;
-        }
-
-        .testimonials-button:hover .arrow {
-            transform: translateX(10px);
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 50px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
+            .navbar {
+                padding: 0 24px;
             }
-
-            .nav-links {
-                gap: 20px;
+            .navbar-menu {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px;
+                gap: 8px;
+                border-bottom: 1px solid var(--border);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
             }
-
-            .nav-links a {
-                font-size: 12px;
+            .navbar-menu.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
             }
-
-            .hero h1 {
-                font-size: 42px;
+            .navbar-cta {
+                margin-left: 0;
+                margin-top: 16px;
+                width: 100%;
+                justify-content: center;
             }
-
-            .hero h2 {
-                font-size: 20px;
+            .navbar-toggle {
+                display: flex;
             }
-
-            .section-title {
-                font-size: 36px;
+            .hero {
+                padding: 100px 24px;
+                padding-top: 140px;
             }
-
-            .skills-grid,
-            .services-grid {
-                grid-template-columns: 1fr;
+            .hero-inner {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 48px;
             }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .hero h1 { font-size: 40px; }
+            .hero-subtitle { font-size: 20px; }
+            .hero-stats { flex-wrap: wrap; gap: 32px; justify-content: center; }
+            .hero-cta { justify-content: center; flex-wrap: wrap; }
+            .hero-photo { width: 280px; height: 280px; }
+            .section { padding: 100px 24px; }
+            .section-title { font-size: 32px; }
+            .cards-grid, .skills-grid { grid-template-columns: 1fr; }
+            .highlights { grid-template-columns: 1fr; }
+            .carousel { grid-template-columns: 1fr; }
+            .carousel-item iframe { height: 320px; }
+            .project-header, .project-body { padding: 32px; }
+            .project-title { font-size: 28px; }
+            .project-hero-image iframe { height: 300px; }
+            .testimonials { padding: 100px 24px; }
+            .testimonials-number { font-size: 64px; }
+            .testimonials-title { font-size: 32px; }
+            .testimonials-cards { grid-template-columns: 1fr; }
+            .contact { padding: 100px 24px; }
+            .contact-title { font-size: 32px; }
+            .contact-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">KC</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#stats">Results</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+    <div class="progress" id="progress"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#hero" class="navbar-logo">Kevin<span>.</span></a>
+            
+            <div class="navbar-menu" id="navbarMenu">
+                <a href="#hero" class="navbar-link active">Home</a>
+                <a href="#about" class="navbar-link">About</a>
+                <a href="#icybear" class="navbar-link">Icy Bear</a>
+                <a href="#moonela" class="navbar-link">Moonela</a>
+                <a href="#taped" class="navbar-link">Taped</a>
+                <a href="#testimonials" class="navbar-link">Testimonials</a>
+                <a href="#contact" class="navbar-cta">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+            </div>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <img src="https://i.postimg.cc/5yZR1sS0/Design-sans-titre-(12).png" alt="Kevin Cleonis" class="profile-img">
-            <h1>Kevin Cleonis</h1>
-            <h2>E-commerce Strategist | Growth, CRO & Paid Media</h2>
-            <a href="#contact" class="cta-button">Let's Work Together</a>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <span class="hero-eyebrow animate">Why You Should Hire Me</span>
+                <h1 class="animate delay-1">Kevin Cleonis</h1>
+                <p class="hero-subtitle animate delay-2">E-commerce Strategist & Growth Expert</p>
+                <p class="hero-description animate delay-3">
+                    I'm an e-commerce and growth marketing specialist with 7 years of experience. I've supported 300+ businesses and helped generate €15M+ in client revenue. I also run my own DTC jewellery brand, Moonela, keeping me hands-on across acquisition, conversion, and retention.
+                </p>
+
+                <div class="hero-stats animate delay-3">
+                    <div class="stat">
+                        <span class="stat-value">2019</span>
+                        <span class="stat-label">Year Started</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">300+</span>
+                        <span class="stat-label">Businesses Helped</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">€15M+</span>
+                        <span class="stat-label">Generated for Clients</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">7 yrs</span>
+                        <span class="stat-label">Experience</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta animate delay-4">
+                    <a href="tel:07378979971" class="btn btn-primary">
+                        <i class="fas fa-phone"></i> 07378979971
+                    </a>
+                    <a href="mailto:kevincleonis@icloud.com" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> Email Me
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image animate delay-2">
+                <img src="https://i.postimg.cc/8zjYFp74/Design-sans-titre-12.png" alt="Kevin Cleonis" class="hero-photo">
+            </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section id="stats" class="stats fade-in">
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">7+</div>
-                <div class="stat-label">Years of Experience</div>
+    <!-- ABOUT -->
+    <section class="section section-gray" id="about">
+        <div class="section-header">
+            <p class="section-eyebrow">About Me</p>
+            <h2 class="section-title">What I Do</h2>
+            <p class="section-subtitle">
+                I build lean systems that turn traffic into revenue by combining high-trust UGC funnels, conversion-focused storefronts, and CRM automations.
+            </p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title">Creator-Led Acquisition</h3>
+                <p class="card-text">Building authentic, high-trust acquisition funnels across Meta, TikTok, and YouTube.</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">300+</div>
-                <div class="stat-label">Brands Supported</div>
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3 class="card-title">Conversion-Focused Branding</h3>
+                <p class="card-text">Premium brand experiences with CRO on product pages and checkout optimization.</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Full-Funnel Expertise</div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">GA4 & KPI Analysis</h3>
+                <p class="card-text">Custom dashboards providing real-time insights for data-driven decisions.</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Sustainable Growth</div>
+            <div class="card">
+                <div class="card-icon">📧</div>
+                <h3 class="card-title">Lifecycle Email Flows</h3>
+                <p class="card-text">Automated sequences that increase LTV through nurturing and retention.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3 class="card-title">Social Media & Content</h3>
+                <p class="card-text">Managing content across platforms, building community and driving demand.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">Test Fast, Learn Faster</h3>
+                <p class="card-text">Fast experiments, clear dashboards, weekly KPI cadence. Transparent approach.</p>
             </div>
         </div>
-    </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <h2 class="section-title">My Skills</h2>
         <div class="skills-grid">
-            <div class="skill-card fade-in">
-                <div class="skill-icon">🎯</div>
-                <h3 class="skill-title">E-commerce Strategy</h3>
-                <p class="skill-description">Full-funnel vision connecting traffic, conversion, retention and social proof for profitable, sustainable growth.</p>
-                <div class="skill-tags">
-                    <span class="tag">CRO</span>
-                    <span class="tag">AOV</span>
-                    <span class="tag">LTV</span>
-                </div>
+            <div class="skill">
+                <p class="skill-title">✓ Full E-commerce Funnel</p>
+                <p class="skill-text">Traffic to conversion, AOV & retention</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Shopify & DTC Expert</p>
+                <p class="skill-text">Store builds, CRO, A/B testing</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Multi-Platform Paid Media</p>
+                <p class="skill-text">Meta, TikTok, Google, YouTube Ads</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Influencer & UGC</p>
+                <p class="skill-text">Creator partnerships, ambassadors</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ AI Tools Integration</p>
+                <p class="skill-text">ChatGPT, Claude, Minea, PiPiAds</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Agency Management</p>
+                <p class="skill-text">Brief & manage with ROI focus</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Performance Analytics</p>
+                <p class="skill-text">GA4, dashboards, KPI tracking</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ Email & Retention</p>
+                <p class="skill-text">Lifecycle flows, LTV optimization</p>
+            </div>
+            <div class="skill">
+                <p class="skill-title">✓ P&L & Unit Economics</p>
+                <p class="skill-text">Margins, sustainable growth</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ICY BEAR -->
+    <section class="section section-white" id="icybear">
+        <div class="section-header">
+            <p class="section-eyebrow">Current Role</p>
+            <h2 class="section-title">Icy Bear Dental</h2>
+            <p class="section-subtitle">
+                E-commerce Executive leading rebranding and growth strategy for a fast-growing UK oral care brand.
+            </p>
+        </div>
+
+        <div class="project">
+            <div class="project-header">
+                <p class="project-tag">E-commerce Executive</p>
+                <h3 class="project-title">Premium Rebranding & Growth</h3>
+                <p class="project-description">
+                    The brand relies on CEO Hanna's image. I developed a long-term rebranding vision for premium positioning and analyzed competitor TrySuri.com to create YouTube Ads strategy with ambassador programs. Targeting +30% annual revenue growth.
+                </p>
             </div>
 
-            <div class="skill-card fade-in">
-                <div class="skill-icon">💰</div>
-                <h3 class="skill-title">Paid Media</h3>
-                <p class="skill-description">Structured testing and clean scaling on Meta, TikTok, Snapchat and Google Ads. KPI steering: ROAS, CAC, MER, CVR.</p>
-                <div class="skill-tags">
-                    <span class="tag">Meta Ads</span>
-                    <span class="tag">TikTok</span>
-                    <span class="tag">Google Ads</span>
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight">
+                        <p class="highlight-title">🎨 Complete Premium Rebrand</p>
+                        <p class="highlight-text">Custom HTML, Shopify theme sections, AI-enhanced imagery, interactive shade selector.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">📹 YouTube Ads Strategy</p>
+                        <p class="highlight-text">Multi-angle strategy with ambassador programs and dental professional partnerships.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">📈 +30% Revenue Target</p>
+                        <p class="highlight-text">Strategic YouTube and Facebook Ads implementation.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">🔧 Technical Implementation</p>
+                        <p class="highlight-text">HTML, Shopify theme editor, and Instant apps on official store.</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="skill-card fade-in">
-                <div class="skill-icon">🎨</div>
-                <h3 class="skill-title">Branding & Creative</h3>
-                <p class="skill-description">Creative direction, premium positioning, visual identity and brand consistency across all touchpoints.</p>
-                <div class="skill-tags">
-                    <span class="tag">Design</span>
-                    <span class="tag">Brand Identity</span>
-                    <span class="tag">Content</span>
+                <div class="media-block">
+                    <p class="media-label">Before: Original Website</p>
+                    <div class="media-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/1tjkp1WfcDntsBa_rRBduW8amFYOjn3CX/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="skill-card fade-in">
-                <div class="skill-icon">🛒</div>
-                <h3 class="skill-title">CRO & UX</h3>
-                <p class="skill-description">Structure optimization, mobile hierarchy, trust elements, A/B testing and message match to maximize conversion.</p>
-                <div class="skill-tags">
-                    <span class="tag">Shopify</span>
-                    <span class="tag">Testing</span>
-                    <span class="tag">UX</span>
+                <div class="media-block">
+                    <p class="media-label">After: Premium Rebrand</p>
+                    <div class="media-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/1Ard8P6raYBp5xr8tr4Jlwj2FWBdnksXe/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="skill-card fade-in">
-                <div class="skill-icon">📊</div>
-                <h3 class="skill-title">Analytics & Data</h3>
-                <p class="skill-description">Performance reading and data-driven decisions. Deep understanding of key metrics and their business impact.</p>
-                <div class="skill-tags">
-                    <span class="tag">Analytics</span>
-                    <span class="tag">KPIs</span>
-                    <span class="tag">Reporting</span>
+                <div class="media-block">
+                    <p class="media-label">Mobile Experience</p>
+                    <div class="media-wrapper">
+                        <div class="video-container mobile">
+                            <iframe src="https://drive.google.com/file/d/1AnODtWwBVK0Zfy_1iW2Lkivdq13rPvNi/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="skill-card fade-in">
-                <div class="skill-icon">📱</div>
-                <h3 class="skill-title">Social Media</h3>
-                <p class="skill-description">Content strategy, planning, organic growth, UGC, influencers and organic-to-paid loops.</p>
-                <div class="skill-tags">
-                    <span class="tag">Content Strategy</span>
-                    <span class="tag">UGC</span>
-                    <span class="tag">Community</span>
-                </div>
-            </div>
-
-            <div class="skill-card fade-in">
-                <div class="skill-icon">🤖</div>
-                <h3 class="skill-title">AI & Execution</h3>
-                <p class="skill-description">Fast execution with AI: research, creation, analysis, iterations. HTML/CSS/JS for rapid prototyping and testing.</p>
-                <div class="skill-tags">
-                    <span class="tag">ChatGPT</span>
-                    <span class="tag">Claude</span>
-                    <span class="tag">Automation</span>
-                </div>
-            </div>
-
-            <div class="skill-card fade-in">
-                <div class="skill-icon">🔍</div>
-                <h3 class="skill-title">Market Research</h3>
-                <p class="skill-description">Market-first approach: competition, trends, customer avatar, product opportunities, competitive intelligence.</p>
-                <div class="skill-tags">
-                    <span class="tag">Ahrefs</span>
-                    <span class="tag">Minea</span>
-                    <span class="tag">Competitive Intel</span>
-                </div>
-            </div>
-
-            <div class="skill-card fade-in">
-                <div class="skill-icon">👥</div>
-                <h3 class="skill-title">Team Management</h3>
-                <p class="skill-description">Briefing, coordination and QA of freelancers, UGC creators and agencies. Clear communication, structured execution.</p>
-                <div class="skill-tags">
-                    <span class="tag">Leadership</span>
-                    <span class="tag">Coordination</span>
-                    <span class="tag">QA</span>
+                <div class="media-block">
+                    <p class="media-label">Shopify Theme Editor</p>
+                    <div class="media-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/1nhm5WjbETMpdJEuk4Nw--WvxaqViFIh1/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <h2 class="section-title">How I Can Help</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in">
-                <div class="service-number">01</div>
-                <h3 class="service-title">Full-Funnel Growth</h3>
-                <p class="service-description">Complete strategy from acquisition to retention. No short-term spikes, but profitable and sustainable growth.</p>
+    <!-- MOONELA -->
+    <section class="section section-gray" id="moonela">
+        <div class="section-header">
+            <p class="section-eyebrow">My Brand</p>
+            <h2 class="section-title">Moonela</h2>
+            <p class="section-subtitle">
+                Premium DTC jewelry brand built from scratch. Full ownership from product to customer.
+            </p>
+        </div>
+
+        <div class="project">
+            <div class="project-header">
+                <p class="project-tag">DTC Jewelry — Founder</p>
+                <h3 class="project-title">Full-Stack Brand Building</h3>
+                <p class="project-description">
+                    Built from A to Z: model shoots, UX design, branding, UGC creatives, Facebook Ads, organic Instagram/TikTok. Mixed strategies: UGC creators + professional models + brand ambassadors + AI enhancement.
+                </p>
+                <a href="https://www.moonela.com" target="_blank" class="btn btn-primary" style="margin-top: 24px;">
+                    Visit Moonela.com <i class="fas fa-arrow-right"></i>
+                </a>
+
+                <!-- Homepage Image After Title -->
+                <div class="project-hero-image">
+                    <iframe src="https://drive.google.com/file/d/1la4_5qtunny5IOlXWSPpeEG8hWdEV1DG/preview" allow="autoplay"></iframe>
+                </div>
             </div>
 
-            <div class="service-card fade-in">
-                <div class="service-number">02</div>
-                <h3 class="service-title">Website & CRO Optimization</h3>
-                <p class="service-description">Transform your site into a conversion machine. Structure, mobile UX, social proof, trust elements, A/B testing.</p>
-            </div>
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight">
+                        <p class="highlight-title">📸 Creative Production</p>
+                        <p class="highlight-text">Professional shoots, UGC creators, ambassadors, AI-enhanced visuals.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">🎯 Multi-Channel</p>
+                        <p class="highlight-text">Facebook Ads, Instagram organic, TikTok, ambassador program.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">🛒 Full E-commerce</p>
+                        <p class="highlight-text">Shopify design, UX optimization, conversion-focused pages.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">🤖 AI Workflow</p>
+                        <p class="highlight-text">AI for photo enhancement and creative testing optimization.</p>
+                    </div>
+                </div>
 
-            <div class="service-card fade-in">
-                <div class="service-number">03</div>
-                <h3 class="service-title">Premium Positioning</h3>
-                <p class="service-description">Elevate your brand to premium level. Creative alignment, credibility, experience and content for upmarket positioning.</p>
-            </div>
+                <!-- Moonela Photoshoot Section -->
+                <div class="media-block">
+                    <p class="media-label">Moonela Photoshoot — Shot by Me</p>
+                    <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7;">
+                        I personally shot all the product and lifestyle photography for Moonela using my Sony A7CII + 50mm lens. Full creative control from concept to final edit — for homepage visuals and product pages.
+                    </p>
+                    <div class="carousel" style="grid-template-columns: 1fr 1fr;">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1sIhIcXcJCA2Ru9r_eDZPOejdTqEo_s9C/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1cPjR1kFZCI_PVuzwt6kIwNHrPIvGHVOe/preview"></iframe></div>
+                    </div>
+                    <div class="media-wrapper" style="margin-top: 24px;">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/1Cwe01I-P8dY97U_s61Amduu-ynpXiZlN/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="service-card fade-in">
-                <div class="service-number">04</div>
-                <h3 class="service-title">Paid Ads Performance</h3>
-                <p class="service-description">Structured creative testing, winner identification, clean scaling and constant refresh. Meta, TikTok, Snapchat, Google.</p>
-            </div>
+                <div class="media-block">
+                    <p class="media-label">Website Tour</p>
+                    <div class="media-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/16yZZVFyB1mXE0oHo52qM06zqYN_j_sn7/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="service-card fade-in">
-                <div class="service-number">05</div>
-                <h3 class="service-title">Market Intelligence</h3>
-                <p class="service-description">Deep research: competition, offers, angles, triggers, customer avatar. Market-based decisions, not intuition.</p>
-            </div>
-
-            <div class="service-card fade-in">
-                <div class="service-number">06</div>
-                <h3 class="service-title">Content & Social Proof</h3>
-                <p class="service-description">UGC strategy, influencers, affiliates. Authentic content powering organic and paid. Strategic reviews and social proof system.</p>
+                <div class="media-block">
+                    <p class="media-label">Ad Creatives</p>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1ATkFv2FejAa9goiBoZeAwDm5x1pSfbPW/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1HNfnJPnHMKuTO9p9A7D-ZgcWd4_JAK7Q/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1zO73UDfBwxdMkvTg0w1HjxLFkAgLAcOJ/preview"></iframe></div>
+                    </div>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1XAB4_0B2Hh1Qz2PphhY-P5TioNY9LFkG/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1DhhWkq6b1z08vaQdnMh8R2HST3oUmA5u/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1QkMSppMcMOByV9kv6L6AwFgdbk3j1zHJ/preview"></iframe></div>
+                    </div>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1T1y-ccOp8Bof3tXlUrvD-ct3orKi4vL6/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1bHiEwEQklQ5nc14_tzn_KQK2rr2M5qo5/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1wJGZBlimnJuWekND1I2mnB_H6HE4HCL4/preview"></iframe></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <h2 class="section-title">What Brands Say</h2>
-        <div class="testimonials-content fade-in">
-            <p class="testimonials-intro">See what e-commerce brands I've worked with have to say about our collaboration.</p>
-            <a href="https://kevin-soze-95fa217bd585a49ca86f25f3b7e3.webflow.io/temoignages" target="_blank" class="testimonials-button">
-                View All Testimonials
-                <span class="arrow">→</span>
+    <!-- TAPED -->
+    <section class="section section-white" id="taped">
+        <div class="section-header">
+            <p class="section-eyebrow">My Brand</p>
+            <h2 class="section-title">Taped</h2>
+            <p class="section-subtitle">
+                Vitamin patches: hair growth, testosterone, energy. AI-first testing strategy.
+            </p>
+        </div>
+
+        <div class="project">
+            <div class="project-header">
+                <p class="project-tag">Vitamin Patches — Founder</p>
+                <h3 class="project-title">AI-First Testing Strategy</h3>
+                <p class="project-description">
+                    Testing creative angles with AI before committing UGC budget. If tests validate, hire UGC creators for winning angles. All product photography with Sony A7CII + 50mm lens.
+                </p>
+
+                <!-- Homepage Image After Title -->
+                <div class="project-hero-image">
+                    <iframe src="https://drive.google.com/file/d/1vU0aS7tw67ZGTAOQavrxvWCZVq06ky7W/preview" allow="autoplay"></iframe>
+                </div>
+            </div>
+
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight">
+                        <p class="highlight-title">📷 Professional Photography</p>
+                        <p class="highlight-text">Sony A7CII + 50mm lens. Full control over visual identity.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">🤖 AI-First Testing</p>
+                        <p class="highlight-text">Validate angles with AI before investing in UGC creators.</p>
+                    </div>
+                    <div class="highlight">
+                        <p class="highlight-title">⚡ Lean Validation</p>
+                        <p class="highlight-text">AI testing → winning angles → UGC investment.</p>
+                    </div>
+                </div>
+
+                <div class="media-block">
+                    <p class="media-label">Website Tour</p>
+                    <div class="media-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://drive.google.com/file/d/1W9ajDzZ6C18XgImr1Rq0seFbReBkCAsf/preview" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="media-block">
+                    <p class="media-label">AI Test Creatives</p>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1t9Zk1GP1F9i-PDNvDfnrHXbRb_8W6Num/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1aLrQ0KEwcekLDh8u2pQ3WZD8cGa3ep8y/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1wmo492jcesyTHCS_utphsz0drf5jN8pD/preview"></iframe></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <p class="section-eyebrow">Business Growth</p>
+        <p class="testimonials-number">300+</p>
+        <h2 class="testimonials-title">Businesses Transformed</h2>
+        <p class="testimonials-text">
+            I've helped over 300 e-commerce businesses develop and optimize their marketing strategies on Shopify and social platform ads.
+        </p>
+        
+        <div class="testimonials-cards">
+            <div class="testimonials-card">
+                <p class="testimonials-card-title">🚀 Dropshipping A to Z</p>
+                <p class="testimonials-card-text">
+                    Product research, competitor analysis, store building, strategic marketing angles, ad creation, finding profitability, and scaling to consistent revenue.
+                </p>
+            </div>
+            <div class="testimonials-card">
+                <p class="testimonials-card-title">📈 Established Brands</p>
+                <p class="testimonials-card-text">
+                    KPI analysis to identify improvement angles, optimizing conversion rates, refining ad strategies, and unlocking new growth levers.
+                </p>
+            </div>
+        </div>
+
+        <!-- Client Quotes -->
+        <div style="max-width: 900px; margin: 0 auto 56px;">
+            <p class="media-label" style="color: rgba(255,255,255,0.5); margin-bottom: 32px;">What Clients Say</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <!-- Quote 1 -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; text-align: center;">
+                    <p style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Romuald</p>
+                    <p style="font-size: 14px; color: #34c759; font-weight: 600; margin-bottom: 16px;">€2M revenue</p>
+                    <p style="font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic;">
+                        "Kevin's marketing strategies are really precise. I loved working with him — he's very professional and results-driven."
+                    </p>
+                </div>
+                
+                <!-- Quote 2 -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; text-align: center;">
+                    <p style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Fancy</p>
+                    <p style="font-size: 14px; color: #34c759; font-weight: 600; margin-bottom: 16px;">€3M revenue</p>
+                    <p style="font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic;">
+                        "Working with Kevin was great. He understands the numbers and knows exactly how to scale. Super easy to communicate with."
+                    </p>
+                </div>
+                
+                <!-- Quote 3 -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 32px; text-align: center;">
+                    <p style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Edouard</p>
+                    <p style="font-size: 14px; color: #34c759; font-weight: 600; margin-bottom: 16px;">€4M revenue</p>
+                    <p style="font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.7; font-style: italic;">
+                        "Kevin is one of the most focused marketers I've met. His strategy made a real impact on our sales. Highly recommended."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="media-wrapper">
+            <div class="video-container">
+                <iframe src="https://drive.google.com/file/d/1xDI-8yZwNvU_726MG1ZmgRKHFUZIZGju/preview" allow="autoplay"></iframe>
+            </div>
+        </div>
+
+        <a href="https://kevin-soze-95fa217bd585a49ca86f25f3b7e3.webflow.io/temoignages" target="_blank" class="btn btn-primary" style="margin-top: 32px;">
+            <i class="fas fa-play-circle"></i> Watch All Testimonials
+        </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2 class="contact-title">Let's Work Together</h2>
+        <p class="contact-text">
+            Ready to scale your e-commerce brand with proven strategies and growth marketing.
+        </p>
+        <div class="contact-buttons">
+            <a href="tel:07378979971" class="btn btn-primary">
+                <i class="fas fa-phone"></i> 07378979971
+            </a>
+            <a href="mailto:kevincleonis@icloud.com" class="btn btn-secondary">
+                <i class="fas fa-envelope"></i> kevincleonis@icloud.com
             </a>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact fade-in">
-        <div class="contact-content">
-            <h2 class="contact-title">Let's Work Together</h2>
-            <p class="contact-subtitle">Ready to take your brand to the next level?</p>
-            <div class="contact-buttons">
-                <a href="mailto:kevincleonis@icloud.com" class="contact-button">
-                    📧 Email
-                </a>
-                <a href="https://www.linkedin.com/in/kevin-cleonis-77880211b/" target="_blank" class="contact-button">
-                    💼 LinkedIn
-                </a>
-                <a href="https://kevincleonis.my.canva.site" target="_blank" class="contact-button">
-                    🎨 Portfolio
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 Kevin Cleonis. All rights reserved.</p>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="footer-text">© 2025 Kevin Cleonis · Manchester, UK</p>
     </footer>
 
     <script>
-        // Smooth scroll reveal animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const progress = document.getElementById('progress');
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            progress.style.width = scrolled + '%';
+        });
 
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navbarMenu = document.getElementById('navbarMenu');
+        
+        navbarToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.navbar-link, .navbar-cta').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarMenu.classList.remove('open');
+            });
+        });
+
+        // Active link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Parallax effect on hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - (scrolled / 700);
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Dynamic nav background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(0, 0, 0, 0.95)';
-            } else {
-                nav.style.background = 'rgba(0, 0, 0, 0.7)';
-            }
+        document.querySelectorAll('.card, .project, .skill').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
         });
     </script>
 </body>
