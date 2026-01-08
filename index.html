@@ -4,878 +4,1151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kevin Cleonis - E-commerce Strategist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-light: #f5f5f7;
+            --bg-white: #ffffff;
+            --bg-dark: #1d1d1f;
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafafa;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-muted: #86868b;
+            --accent: #6b7280;
+            --accent-light: #9ca3af;
+            --accent-dark: #4b5563;
+            --accent-metallic: linear-gradient(135deg, #71717a 0%, #a1a1aa 50%, #71717a 100%);
+            --border: rgba(0,0,0,0.08);
+            --border-accent: rgba(107,114,128,0.3);
+            --shadow: 0 20px 60px rgba(0,0,0,0.08);
+            --shadow-hover: 0 30px 80px rgba(0,0,0,0.12);
+            --shadow-glow: 0 0 60px rgba(107,114,128,0.15);
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            background: #0a0e27;
-            color: #fff;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* Navigation latérale */
-        .side-nav {
-            position: fixed;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-light); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        .progress {
+            position: fixed; top: 0; left: 0; height: 2px;
+            background: var(--accent-metallic);
+            z-index: 9999; transition: width 0.15s;
         }
 
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-dot:hover, .nav-dot.active {
-            background: #00d4ff;
-            transform: scale(1.3);
-        }
-
-        .nav-dot::after {
-            content: attr(data-label);
-            position: absolute;
-            right: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            white-space: nowrap;
-            font-size: 12px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            background: rgba(0,212,255,0.9);
-            padding: 5px 12px;
-            border-radius: 5px;
-        }
-
-        .nav-dot:hover::after {
-            opacity: 1;
-        }
-
-        /* Barre de progression */
-        .scroll-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);
-            z-index: 9999;
-            transition: width 0.1s ease;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 60px;
-            position: relative;
-            padding: 100px 60px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        .hero-content {
-            flex: 1;
-            z-index: 1;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            background: rgba(0,212,255,0.1);
-            color: #00d4ff;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0,212,255,0.3);
-        }
-
-        h1 {
-            font-size: 72px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff 0%, #00d4ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 28px;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary:hover, a[href^="tel:"]:hover, a[href^="mailto:"]:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,212,255,0.5);
-        }
-
-        a[href^="mailto:"]:hover {
-            background: rgba(0,212,255,0.1);
-            border-color: #00d4ff;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            color: #fff;
-            box-shadow: 0 10px 30px rgba(0,212,255,0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,212,255,0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #fff;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .btn-secondary:hover {
-            border-color: #00d4ff;
-            background: rgba(0,212,255,0.1);
-        }
-
-        .hero-photo {
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            border: 6px solid rgba(0,212,255,0.3);
-            box-shadow: 0 20px 80px rgba(0,212,255,0.4);
-            object-fit: cover;
-            z-index: 1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Stats Grid */
-        .stats-section {
-            padding: 100px 60px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.05) 0%, rgba(0,153,255,0.05) 100%);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 40px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-            background: rgba(0,212,255,0.1);
-            border-color: #00d4ff;
-        }
-
-        .stat-number {
-            font-size: 56px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Section with Accordion */
-        .section {
-            padding: 100px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 60px;
-            text-align: center;
-            position: relative;
-            padding-bottom: 30px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #00d4ff 0%, #0099ff 100%);
-            border-radius: 2px;
-        }
-
-        .accordion {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .accordion-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .accordion-item.active {
-            background: rgba(0,212,255,0.05);
-            border-color: #00d4ff;
-        }
-
-        .accordion-header {
-            padding: 25px 30px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .accordion-header:hover {
-            background: rgba(255,255,255,0.05);
-        }
-
-        .accordion-title {
-            font-size: 22px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .accordion-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .accordion-arrow {
-            font-size: 24px;
-            transition: transform 0.3s ease;
-            color: #00d4ff;
-        }
-
-        .accordion-item.active .accordion-arrow {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.4s ease;
-            padding: 0 30px;
-        }
-
-        .accordion-item.active .accordion-content {
-            max-height: 500px;
-            padding: 0 30px 30px;
-        }
-
-        .accordion-text {
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        /* Interactive Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .interactive-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 40px;
+        /* NAVIGATION */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 80px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
-        .interactive-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.1), transparent);
-            transition: left 0.5s ease;
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
         }
 
-        .interactive-card:hover::before {
-            left: 100%;
+        .navbar-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 80px;
         }
 
-        .interactive-card:hover {
-            transform: translateY(-10px);
-            background: rgba(0,212,255,0.05);
-            border-color: #00d4ff;
-            box-shadow: 0 20px 60px rgba(0,212,255,0.2);
+        .navbar-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px; font-weight: 600;
+            color: var(--text-primary); text-decoration: none;
         }
 
-        .card-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: inline-block;
+        .navbar-logo span { color: var(--accent); }
+
+        .navbar-menu { display: flex; align-items: center; gap: 8px; }
+
+        .navbar-link {
+            padding: 12px 24px; font-size: 13px; font-weight: 500;
+            color: var(--text-secondary); text-decoration: none;
+            border-radius: 100px; transition: all 0.3s ease;
+            letter-spacing: 0.03em; text-transform: uppercase;
         }
 
-        .card-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 15px;
+        .navbar-link:hover { color: var(--text-primary); }
+        .navbar-link.active { color: var(--accent-dark); }
+
+        .navbar-cta {
+            margin-left: 24px; padding: 14px 32px;
+            font-size: 12px; font-weight: 600;
+            color: #fff; background: var(--accent-metallic);
+            text-decoration: none; border-radius: 100px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.08em; text-transform: uppercase;
         }
 
-        .card-description {
-            color: rgba(255,255,255,0.6);
-            line-height: 1.7;
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
-            padding: 100px 60px;
-            text-align: center;
-            margin: 100px 60px;
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
+        .navbar-toggle {
+            display: none; flex-direction: column; gap: 6px;
+            padding: 10px; background: none; border: none; cursor: pointer;
         }
 
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: rotate 20s linear infinite;
+        .navbar-toggle span {
+            width: 28px; height: 1px;
+            background: var(--text-primary); transition: all 0.3s ease;
         }
 
-        .cta-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-text {
-            font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            position: relative;
-            z-index: 1;
-            color: rgba(255,255,255,0.9);
-        }
-
-        .cta-button {
-            background: #fff;
-            color: #0099ff;
-            padding: 18px 50px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(2deg); }
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(107,114,128,0.15); }
+            50% { box-shadow: 0 0 80px rgba(107,114,128,0.25); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(107,114,128,0.15); }
+            50% { border-color: rgba(107,114,128,0.35); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .animate {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.6s; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+            display: flex; align-items: center;
+            padding: 140px 80px; position: relative; overflow: hidden;
+        }
+
+        .hero::before {
+            content: ''; position: absolute;
+            width: 1000px; height: 1000px;
+            background: radial-gradient(circle, rgba(107,114,128,0.06) 0%, transparent 60%);
+            border-radius: 50%; top: -300px; right: -300px;
+        }
+
+        .hero::after {
+            content: ''; position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(107,114,128,0.04) 0%, transparent 60%);
+            border-radius: 50%; bottom: -200px; left: -200px;
+        }
+
+        .hero-decoration {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px; height: 800px;
+            border: 1px solid rgba(107,114,128,0.1);
+            border-radius: 50%; pointer-events: none;
+            animation: borderGlow 4s ease-in-out infinite;
+        }
+
+        .hero-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 120px; max-width: 1400px; margin: 0 auto;
+            width: 100%; position: relative; z-index: 2;
+        }
+
+        .hero-content { flex: 1; max-width: 650px; }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 11px; font-weight: 600; color: var(--accent-dark);
+            text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 32px;
+        }
+
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: ''; width: 40px; height: 1px; background: var(--accent);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px; font-weight: 500; line-height: 1.05;
+            margin-bottom: 24px; letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .hero h1 .accent { color: var(--accent-dark); font-style: italic; }
+
+        .hero-subtitle {
+            font-size: 20px; font-weight: 300;
+            color: var(--text-secondary); margin-bottom: 32px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-description {
+            font-size: 16px; color: var(--text-muted);
+            line-height: 1.9; margin-bottom: 48px; max-width: 520px;
+        }
+
+        .hero-stats {
+            display: flex; gap: 48px; padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 500;
+            display: block; margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .stat-value .metallic { 
+            background: var(--accent-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 11px; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.15em;
+        }
+
+        .hero-cta { display: flex; gap: 20px; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 18px 36px; border-radius: 100px;
+            font-size: 12px; font-weight: 600; text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        .btn-primary { background: var(--accent-metallic); color: #fff; }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent; color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+        .hero-image-wrapper { position: relative; }
+
+        .hero-image-frame {
+            position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
+            border: 1px solid var(--border-accent);
+            border-radius: 50%; animation: glow 3s ease-in-out infinite;
+        }
+
+        .hero-photo {
+            width: 420px; height: 420px; border-radius: 50%;
+            object-fit: cover; position: relative; z-index: 2;
+            animation: float 8s ease-in-out infinite;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.12);
+        }
+
+        /* SECTIONS */
+        .section { padding: 160px 80px; position: relative; }
+        .section-white { background: var(--bg-white); }
+        .section-gray { background: var(--bg-light); }
+        .section-dark { 
+            background: var(--bg-dark); 
+            color: #fff;
+        }
+        .section-dark .section-title,
+        .section-dark .section-subtitle,
+        .section-dark .card-title,
+        .section-dark .card-text,
+        .section-dark .highlight-title,
+        .section-dark .highlight-text,
+        .section-dark .project-title,
+        .section-dark .project-description { color: #fff; }
+        .section-dark .section-subtitle,
+        .section-dark .card-text,
+        .section-dark .highlight-text,
+        .section-dark .project-description { color: rgba(255,255,255,0.7); }
+
+        .section-header {
+            text-align: center; max-width: 700px;
+            margin: 0 auto 100px;
+        }
+
+        .section-eyebrow {
+            display: inline-flex; align-items: center; gap: 16px;
+            font-size: 11px; font-weight: 600; color: var(--accent-dark);
+            text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 24px;
+        }
+
+        .section-eyebrow::before, .section-eyebrow::after {
+            content: ''; width: 30px; height: 1px; background: var(--accent);
+        }
+
+        .section-dark .section-eyebrow { color: var(--accent-light); }
+        .section-dark .section-eyebrow::before,
+        .section-dark .section-eyebrow::after { background: var(--accent-light); }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px; font-weight: 500;
+            margin-bottom: 24px; letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .section-title .accent { color: var(--accent-dark); font-style: italic; }
+        .section-dark .section-title .accent { color: var(--accent-light); }
+
+        .section-subtitle {
+            font-size: 17px; color: var(--text-secondary);
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* CARDS */
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 24px; max-width: 1200px; margin: 0 auto;
+        }
+
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 24px; padding: 48px 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+
+        .card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--accent-metallic);
+            opacity: 0; transition: opacity 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-icon { font-size: 32px; margin-bottom: 24px; display: block; }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; font-weight: 500; margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .card-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 16px; max-width: 1200px; margin: 80px auto 0;
+        }
+
+        .skill {
+            padding: 24px 32px; border-radius: 16px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            display: flex; align-items: center; gap: 16px;
+        }
+
+        .skill:hover {
+            border-color: var(--border-accent);
+            transform: translateX(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .skill-check {
+            width: 24px; height: 24px; border-radius: 50%;
+            background: var(--accent-metallic);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: #fff; flex-shrink: 0;
+        }
+
+        .skill-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
+        .skill-text { font-size: 13px; color: var(--text-muted); }
+
+        /* PROJECT */
+        .project {
+            max-width: 1100px; margin: 0 auto 120px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 32px; overflow: hidden;
+            transition: all 0.5s ease; position: relative;
+        }
+
+        .project::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: var(--accent-metallic);
+        }
+
+        .project:hover {
+            border-color: var(--border-accent);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-dark .project {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .project-header {
+            padding: 64px; border-bottom: 1px solid var(--border);
+        }
+
+        .section-dark .project-header { border-color: rgba(255,255,255,0.1); }
+
+        .project-tag {
+            display: inline-block; font-size: 10px; font-weight: 600;
+            color: var(--accent-dark); text-transform: uppercase;
+            letter-spacing: 0.15em; margin-bottom: 20px;
+            padding: 8px 16px; border: 1px solid var(--border-accent);
+            border-radius: 100px;
+        }
+
+        .section-dark .project-tag { color: var(--accent-light); border-color: rgba(255,255,255,0.2); }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px; font-weight: 500;
+            margin-bottom: 20px; letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            font-size: 16px; color: var(--text-secondary);
+            line-height: 1.9; max-width: 650px;
+        }
+
+        .project-body { padding: 64px; }
+
+        .project-hero-image {
+            margin-top: 40px; border-radius: 20px;
+            overflow: hidden; border: 1px solid var(--border);
+        }
+
+        .section-dark .project-hero-image { border-color: rgba(255,255,255,0.1); }
+
+        .project-hero-image iframe {
+            width: 100%; height: 500px; border: none;
+        }
+
+        /* HIGHLIGHTS */
+        .highlights {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 20px; margin-bottom: 56px;
+        }
+
+        .highlight {
+            padding: 32px; background: var(--bg-light);
+            border-radius: 20px; border: 1px solid var(--border);
+            position: relative; overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .section-dark .highlight { 
+            background: rgba(255,255,255,0.03); 
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .highlight::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--accent-metallic);
+        }
+
+        .highlight:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-title {
+            font-size: 15px; font-weight: 600; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight-text {
+            font-size: 14px; color: var(--text-muted);
+            line-height: 1.7; padding-left: 32px;
+        }
+
+        /* MEDIA */
+        .media-block { margin: 48px 0; }
+
+        .media-label {
+            font-size: 11px; font-weight: 600; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px;
+        }
+
+        .section-dark .media-label { color: rgba(255,255,255,0.5); }
+
+        .media-description {
+            font-size: 15px; color: var(--text-secondary);
+            margin-bottom: 28px; line-height: 1.8;
+        }
+
+        .section-dark .media-description { color: rgba(255,255,255,0.7); }
+
+        .media-wrapper {
+            border-radius: 20px; overflow: hidden;
+            background: #000; border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .section-dark .media-wrapper { border-color: rgba(255,255,255,0.1); }
+
+        .video-container {
+            position: relative; padding-bottom: 56.25%; width: 100%;
+        }
+
+        .video-container.mobile {
+            padding-bottom: 177.78%; max-width: 320px; margin: 0 auto;
+        }
+
+        .video-container iframe {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; border: none;
+        }
+
+        /* CAROUSEL */
+        .carousel {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 16px; margin: 24px 0;
+        }
+
+        .carousel-item {
+            border-radius: 16px; overflow: hidden;
+            background: #000; border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.02);
+            border-color: var(--border-accent);
+        }
+
+        .carousel-item iframe { width: 100%; height: 360px; border: none; }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 180px 80px; background: var(--bg-dark);
+            text-align: center; position: relative; overflow: hidden;
+            color: #fff;
+        }
+
+        .testimonials::before {
+            content: ''; position: absolute;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(107,114,128,0.1) 0%, transparent 60%);
+            border-radius: 50%; top: -200px; left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .testimonials .section-eyebrow { color: var(--accent-light); }
+        .testimonials .section-eyebrow::before,
+        .testimonials .section-eyebrow::after { background: var(--accent-light); }
+
+        .testimonials-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 120px; font-weight: 400;
+            background: var(--accent-metallic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px; line-height: 1;
+        }
+
+        .testimonials-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px; font-weight: 500; margin-bottom: 24px;
+        }
+
+        .testimonials-title .accent { color: var(--accent-light); font-style: italic; }
+
+        .testimonials-text {
+            font-size: 17px; color: rgba(255,255,255,0.7);
+            max-width: 550px; margin: 0 auto 64px;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        .testimonials-cards {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 24px; max-width: 800px;
+            margin: 0 auto 64px; text-align: left;
+        }
+
+        .testimonials-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .testimonials-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .testimonials-card-title {
+            font-size: 17px; font-weight: 600; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .testimonials-card-text {
+            font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8;
+        }
+
+        /* QUOTES */
+        .client-quotes { max-width: 1000px; margin: 0 auto 72px; }
+
+        .quotes-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+        }
+
+        .quote-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px; padding: 40px; text-align: center;
+            transition: all 0.4s ease; position: relative;
+        }
+
+        .quote-card::before {
+            content: '"'; font-family: 'Playfair Display', serif;
+            font-size: 80px; color: var(--accent-light); opacity: 0.3;
+            position: absolute; top: 20px; left: 30px; line-height: 1;
+        }
+
+        .quote-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .quote-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; font-weight: 500; margin-bottom: 8px;
+        }
+
+        .quote-revenue {
+            font-size: 13px; color: var(--accent-light);
+            font-weight: 600; margin-bottom: 24px; letter-spacing: 0.05em;
+        }
+
+        .quote-text {
+            font-size: 15px; color: rgba(255,255,255,0.7);
+            line-height: 1.8; font-style: italic;
+        }
+
+        .testimonials .media-wrapper {
+            max-width: 800px; margin: 0 auto 56px;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        /* CONTACT */
+        .contact {
+            padding: 180px 80px; text-align: center;
+            background: linear-gradient(180deg, var(--bg-light) 0%, #fff 100%);
+            position: relative; overflow: hidden;
+        }
+
+        .contact::before {
+            content: ''; position: absolute;
+            width: 1000px; height: 1000px;
+            background: radial-gradient(circle, rgba(107,114,128,0.06) 0%, transparent 60%);
+            border-radius: 50%; bottom: -500px; left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact-eyebrow {
+            display: inline-flex; align-items: center; gap: 16px;
+            font-size: 11px; font-weight: 600; color: var(--accent-dark);
+            text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 32px;
+        }
+
+        .contact-eyebrow::before, .contact-eyebrow::after {
+            content: ''; width: 30px; height: 1px; background: var(--accent);
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px; font-weight: 500;
+            margin-bottom: 24px; letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .contact-title .accent { color: var(--accent-dark); font-style: italic; }
+
+        .contact-text {
+            font-size: 17px; color: var(--text-secondary);
+            max-width: 480px; margin: 0 auto 56px;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        .contact-buttons { display: flex; gap: 20px; justify-content: center; }
+
+        /* FOOTER */
+        .footer {
+            padding: 48px; text-align: center;
+            background: var(--bg-white); border-top: 1px solid var(--border);
+        }
+
+        .footer-text {
+            font-size: 13px; color: var(--text-muted); letter-spacing: 0.05em;
+        }
+
+        .footer-text span { color: var(--accent-dark); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 56px; }
+            .hero-inner { gap: 80px; }
+            .hero-photo { width: 360px; height: 360px; }
+            .cards-grid, .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .carousel { grid-template-columns: repeat(2, 1fr); }
+            .section-title { font-size: 44px; }
+            .navbar { padding: 0 40px; }
+            .quotes-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .hero {
+            .navbar { padding: 0 24px; }
+            .navbar-menu {
+                position: fixed; top: 80px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98); backdrop-filter: blur(30px);
+                flex-direction: column; padding: 32px 24px; gap: 8px;
+                border-bottom: 1px solid var(--border);
+                transform: translateY(-100%); opacity: 0;
+                pointer-events: none;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .navbar-menu.open {
+                transform: translateY(0); opacity: 1; pointer-events: all;
+            }
+            .navbar-cta {
+                margin-left: 0; margin-top: 24px;
+                width: 100%; justify-content: center;
+            }
+            .navbar-toggle { display: flex; }
+            .hero { padding: 120px 24px; }
+            .hero-inner {
                 flex-direction: column-reverse;
-                padding: 60px 30px;
-                text-align: center;
+                text-align: center; gap: 56px;
             }
-
-            h1 {
-                font-size: 48px;
-            }
-
-            .hero-subtitle {
-                font-size: 20px;
-            }
-
-            .hero-photo {
-                width: 250px;
-                height: 250px;
-            }
-
-            .section, .stats-section, .cta-section {
-                padding: 60px 30px;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .side-nav {
-                display: none;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 100%;
-            }
+            .hero h1 { font-size: 44px; }
+            .hero-subtitle { font-size: 18px; }
+            .hero-description { margin: 0 auto 40px; }
+            .hero-stats { flex-wrap: wrap; gap: 32px; justify-content: center; }
+            .hero-cta { justify-content: center; flex-wrap: wrap; }
+            .hero-photo { width: 300px; height: 300px; }
+            .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+            .section { padding: 120px 24px; }
+            .section-title { font-size: 36px; }
+            .section-header { margin-bottom: 64px; }
+            .cards-grid, .skills-grid { grid-template-columns: 1fr; }
+            .highlights { grid-template-columns: 1fr; }
+            .carousel { grid-template-columns: 1fr; }
+            .carousel-item iframe { height: 320px; }
+            .project-header, .project-body { padding: 40px; }
+            .project-title { font-size: 32px; }
+            .project-hero-image iframe { height: 300px; }
+            .testimonials { padding: 120px 24px; }
+            .testimonials-number { font-size: 80px; }
+            .testimonials-title { font-size: 36px; }
+            .testimonials-cards { grid-template-columns: 1fr; }
+            .quotes-grid { grid-template-columns: 1fr; }
+            .contact { padding: 120px 24px; }
+            .contact-title { font-size: 40px; }
+            .contact-buttons { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <div class="progress" id="progress"></div>
 
-    <!-- Navigation latérale -->
-    <div class="side-nav">
-        <div class="nav-dot active" data-label="Home" data-section="hero"></div>
-        <div class="nav-dot" data-label="Stats" data-section="stats"></div>
-        <div class="nav-dot" data-label="Expertise" data-section="expertise"></div>
-        <div class="nav-dot" data-label="Differentiators" data-section="differentiators"></div>
-        <div class="nav-dot" data-label="Contact" data-section="cta"></div>
-    </div>
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#hero" class="navbar-logo">Kevin<span>.</span></a>
+            <div class="navbar-menu" id="navbarMenu">
+                <a href="#hero" class="navbar-link active">Home</a>
+                <a href="#about" class="navbar-link">About</a>
+                <a href="#icybear" class="navbar-link">Icy Bear</a>
+                <a href="#moonela" class="navbar-link">Moonela</a>
+                <a href="#taped" class="navbar-link">Taped</a>
+                <a href="#testimonials" class="navbar-link">Testimonials</a>
+                <a href="#contact" class="navbar-cta"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
 
-    <!-- Hero Section -->
+    <!-- HERO -->
     <section class="hero" id="hero">
-        <div class="hero-content">
-            <div class="hero-tag">🚀 Available for Remote Work</div>
-            <div style="font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #00d4ff; margin-bottom: 15px; text-transform: uppercase;">
-                Why You Should Hire Me
+        <div class="hero-decoration"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <span class="hero-eyebrow animate">E-commerce Expert</span>
+                <h1 class="animate delay-1">Kevin <span class="accent">Cleonis</span></h1>
+                <p class="hero-subtitle animate delay-2">Strategic Growth & Brand Building</p>
+                <p class="hero-description animate delay-3">
+                    E-commerce and growth marketing specialist with 7 years of experience. Building lean systems that transform traffic into sustainable revenue through high-trust funnels, conversion-focused design, and data-driven strategies.
+                </p>
+                <div class="hero-stats animate delay-3">
+                    <div class="stat">
+                        <span class="stat-value">2019</span>
+                        <span class="stat-label">Year Started</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value"><span class="metallic">300+</span></span>
+                        <span class="stat-label">Businesses Helped</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">€<span class="metallic">15M</span>+</span>
+                        <span class="stat-label">Generated for Clients</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">7 yrs</span>
+                        <span class="stat-label">Experience</span>
+                    </div>
+                </div>
+                <div class="hero-cta animate delay-4">
+                    <a href="tel:07378979971" class="btn btn-primary"><i class="fas fa-phone"></i> 07378979971</a>
+                    <a href="mailto:kevincleonis@icloud.com" class="btn btn-secondary"><i class="fas fa-envelope"></i> Email Me</a>
+                </div>
             </div>
-            <h1>Kevin Cleonis</h1>
-            <div class="hero-subtitle">E-commerce Strategist & Growth Expert</div>
-            <p style="font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 20px;">
-                7+ years transforming Shopify & DTC brands across the UK and Europe. Currently scaling Icy Bear Dental while bringing proven expertise in performance marketing and AI-powered e-commerce.
-            </p>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 30px;">
-                <span style="font-size: 24px;">📍</span>
-                <span style="color: rgba(255,255,255,0.7);">Manchester, UK</span>
-            </div>
-            <div class="hero-buttons">
-                <a href="tel:07378979971" class="btn-primary">Let's Connect - 07378979971</a>
-                <a href="https://kevincleonis.my.canva.site" target="_blank" class="btn-secondary">View Portfolio</a>
-            </div>
-        </div>
-        <img src="https://i.postimg.cc/8zjYFp74/Design-sans-titre-(12).png" alt="Kevin Cleonis" class="hero-photo">
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section" id="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">300+</div>
-                <div class="stat-label">Brands Supported</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">7</div>
-                <div class="stat-label">Years Experience</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">£M+</div>
-                <div class="stat-label">Revenue Generated</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Video Testimonials</div>
+            <div class="hero-image-wrapper animate delay-2">
+                <div class="hero-image-frame"></div>
+                <img src="https://i.postimg.cc/8zjYFp74/Design-sans-titre-12.png" alt="Kevin Cleonis" class="hero-photo">
             </div>
         </div>
     </section>
 
-    <!-- Core Expertise - Accordion -->
-    <section class="section" id="expertise">
-        <h2 class="section-title">Core Expertise</h2>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <div class="accordion-title">
-                        <div class="accordion-icon">🎯</div>
-                        Full-Funnel E-commerce
-                    </div>
-                    <div class="accordion-arrow">▼</div>
-                </div>
-                <div class="accordion-content">
-                    <p class="accordion-text">
-                        Complete ownership from traffic acquisition through conversion, AOV optimization, and retention strategy. Proven track record of building and scaling profitable customer journeys that maximize lifetime value while maintaining sustainable unit economics.
-                    </p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <div class="accordion-title">
-                        <div class="accordion-icon">🛒</div>
-                        Shopify & DTC Ecosystem
-                    </div>
-                    <div class="accordion-arrow">▼</div>
-                </div>
-                <div class="accordion-content">
-                    <p class="accordion-text">
-                        Expert in store builds, CRO, landing pages, A/B testing, and performance analytics using Google Analytics. Deep understanding of the entire Shopify ecosystem and how to leverage it for maximum conversion and revenue growth.
-                    </p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <div class="accordion-title">
-                        <div class="accordion-icon">📱</div>
-                        Multi-Channel Paid Media
-                    </div>
-                    <div class="accordion-arrow">▼</div>
-                </div>
-                <div class="accordion-content">
-                    <p class="accordion-text">
-                        Strategic orchestration across Facebook, Instagram, TikTok, Snapchat, Google Ads, and influencer marketing. Skilled at balancing multiple channels to achieve specific revenue and margin goals while optimizing for ROAS and CAC.
-                    </p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <div class="accordion-title">
-                        <div class="accordion-icon">💼</div>
-                        Commercial Leadership
-                    </div>
-                    <div class="accordion-arrow">▼</div>
-                </div>
-                <div class="accordion-content">
-                    <p class="accordion-text">
-                        Translating business objectives into actionable roadmaps, campaigns, and experiments with founders. Experience working closely with leadership teams to align marketing initiatives with P&L impact and sustainable growth targets.
-                    </p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <div class="accordion-title">
-                        <div class="accordion-icon">🤖</div>
-                        AI Integration Expertise
-                    </div>
-                    <div class="accordion-arrow">▼</div>
-                </div>
-                <div class="accordion-content">
-                    <p class="accordion-text">
-                        Daily use of ChatGPT, Claude, Gemini, ToolScale, and Higgsfield for research, content generation, analytics, and automation. Combined with specialist tools like Minea and PiPiAds for competitive intelligence and rapid opportunity identification.
-                    </p>
-                </div>
-            </div>
+    <!-- ABOUT -->
+    <section class="section section-gray" id="about">
+        <div class="section-header">
+            <p class="section-eyebrow">About Me</p>
+            <h2 class="section-title">What I <span class="accent">Do</span></h2>
+            <p class="section-subtitle">I build lean systems that turn traffic into revenue by combining high-trust UGC funnels, conversion-focused storefronts, and CRM automations.</p>
         </div>
-    </section>
-
-    <!-- What Sets Me Apart -->
-    <section class="section" id="differentiators">
-        <h2 class="section-title">What Sets Me Apart</h2>
         <div class="cards-grid">
-            <div class="interactive-card">
-                <div class="card-icon">⚡</div>
-                <div class="card-title">Adaptability & Self-Sufficiency</div>
-                <p class="card-description">
-                    7 years self-employed, comfortable with uncertainty and rapid learning. When facing new platforms or constraints, I study intensively and apply directly for results.
-                </p>
+            <div class="card">
+                <span class="card-icon">🎯</span>
+                <h3 class="card-title">Creator-Led Acquisition</h3>
+                <p class="card-text">Building authentic, high-trust acquisition funnels across Meta, TikTok, and YouTube.</p>
             </div>
-
-            <div class="interactive-card">
-                <div class="card-icon">🌐</div>
-                <div class="card-title">Remote Work Excellence</div>
-                <p class="card-description">
-                    Years of experience with international clients and teams. Comfortable with async communication, documentation, and maintaining alignment without constant meetings.
-                </p>
+            <div class="card">
+                <span class="card-icon">🎨</span>
+                <h3 class="card-title">Conversion-Focused Branding</h3>
+                <p class="card-text">Premium brand experiences with CRO on product pages and checkout optimization.</p>
             </div>
+            <div class="card">
+                <span class="card-icon">📊</span>
+                <h3 class="card-title">GA4 & KPI Analysis</h3>
+                <p class="card-text">Custom dashboards providing real-time insights for data-driven decisions.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📧</span>
+                <h3 class="card-title">Lifecycle Email Flows</h3>
+                <p class="card-text">Automated sequences that increase LTV through nurturing and retention.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">📱</span>
+                <h3 class="card-title">Social Media & Content</h3>
+                <p class="card-text">Managing content across platforms, building community and driving demand.</p>
+            </div>
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3 class="card-title">Test Fast, Learn Faster</h3>
+                <p class="card-text">Fast experiments, clear dashboards, weekly KPI cadence. Transparent approach.</p>
+            </div>
+        </div>
+        <div class="skills-grid">
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Full E-commerce Funnel</p><p class="skill-text">Traffic to conversion, AOV & retention</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Shopify & DTC Expert</p><p class="skill-text">Store builds, CRO, A/B testing</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Multi-Platform Paid Media</p><p class="skill-text">Meta, TikTok, Google, YouTube Ads</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Influencer & UGC</p><p class="skill-text">Creator partnerships, ambassadors</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">AI Tools Integration</p><p class="skill-text">ChatGPT, Claude, Minea, PiPiAds</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Agency Management</p><p class="skill-text">Brief & manage with ROI focus</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Performance Analytics</p><p class="skill-text">GA4, dashboards, KPI tracking</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">Email & Retention</p><p class="skill-text">Lifecycle flows, LTV optimization</p></div></div>
+            <div class="skill"><div class="skill-check">✓</div><div><p class="skill-title">P&L & Unit Economics</p><p class="skill-text">Margins, sustainable growth</p></div></div>
+        </div>
+    </section>
 
-            <div class="interactive-card">
-                <div class="card-icon">📊</div>
-                <div class="card-title">Business Impact Focus</div>
-                <p class="card-description">
-                    Deep understanding of P&L, unit economics, cash flow, and lifetime value. Every marketing initiative is connected to actual revenue and profit impact.
-                </p>
+    <!-- ICY BEAR -->
+    <section class="section section-white" id="icybear">
+        <div class="section-header">
+            <p class="section-eyebrow">Current Role</p>
+            <h2 class="section-title">Icy Bear <span class="accent">Dental</span></h2>
+            <p class="section-subtitle">E-commerce Growth Manager | Digital Strategist leading rebranding and growth strategy for a fast-growing UK oral care brand.</p>
+        </div>
+        <div class="project">
+            <div class="project-header">
+                <span class="project-tag">E-commerce Growth Manager | Digital Strategist</span>
+                <h3 class="project-title">Premium Rebranding & Growth</h3>
+                <p class="project-description">The brand relies on CEO Hanna's image. I developed a long-term rebranding vision for premium positioning and analyzed competitor TrySuri.com to create YouTube Ads strategy with ambassador programs. Targeting +30% annual revenue growth.</p>
+            </div>
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight"><p class="highlight-title">🎨 Complete Premium Rebrand</p><p class="highlight-text">Custom HTML, Shopify theme sections, AI-enhanced imagery, interactive shade selector.</p></div>
+                    <div class="highlight"><p class="highlight-title">📹 YouTube Ads Strategy</p><p class="highlight-text">Multi-angle strategy with ambassador programs and dental professional partnerships.</p></div>
+                    <div class="highlight"><p class="highlight-title">📈 +30% Revenue Target</p><p class="highlight-text">Strategic YouTube and Facebook Ads implementation.</p></div>
+                    <div class="highlight"><p class="highlight-title">🔧 Technical Implementation</p><p class="highlight-text">HTML, Shopify theme editor, and Instant apps on official store.</p></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Before: Original Website</p>
+                    <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1tjkp1WfcDntsBa_rRBduW8amFYOjn3CX/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">After: Premium Rebrand</p>
+                    <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1vlCnWQZEwim_R2ztrEsfEJf2zGhROJPm/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Mobile Experience</p>
+                    <div class="media-wrapper"><div class="video-container mobile"><iframe src="https://drive.google.com/file/d/1jWWEeCxzMSD8vt6qlob42a10DeoP89Nh/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Shopify Theme Editor</p>
+                    <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1b7l8dtS7x2198bNNEnbH8ZSJU_tPaGHp/preview" allow="autoplay"></iframe></div></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="cta">
-        <h2 class="cta-title">Ready to Drive Growth at OnBuy</h2>
-        <p class="cta-text">
-            I'm excited about contributing to OnBuy as a customer-centric marketplace alternative. Let's discuss how my performance marketing, DTC strategy, and AI expertise can drive traffic growth, improve conversion, and create better experiences for buyers and sellers.
-        </p>
-        <a href="https://kevincleonis.my.canva.site" target="_blank" class="cta-button">
-            View Full Portfolio →
-        </a>
-    </section>
-
-    <!-- Detailed Background Section -->
-    <section class="section" style="background: rgba(0,212,255,0.02); padding: 100px 40px; margin: 0;">
-        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
-            <h2 class="section-title" style="text-align: center;">My Complete Background</h2>
-            
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px; margin-bottom: 40px; margin-left: auto; margin-right: auto; max-width: 100%;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">Professional Journey</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    I am an E-commerce strategist with more than seven years of hands-on experience building and scaling Shopify and DTC brands across the UK and Europe. I currently work as an E-commerce Executive at Icy Bear Dental, a fast-growing UK oral care brand, where I support the full online revenue funnel from traffic acquisition to onsite conversion and retention.
-                </p>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    Before joining Icy Bear I spent seven years running my own e-commerce consultancy and operating several brands of my own, which gave me a very practical understanding of what it takes to grow revenue profitably in a competitive market.
-                </p>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px;">
-                    Over the past seven years I have worked directly with more than 300 e-commerce businesses and brands. I helped them launch, optimise and scale their online sales using a mix of channels including Facebook and Instagram Ads, TikTok Ads, Snapchat Ads, Google Ads, influencer marketing and organic social media. I have done this both for my clients and for my own brands, which means I understand the business realities behind every marketing decision, not only the theory.
-                </p>
+    <!-- MOONELA -->
+    <section class="section section-gray" id="moonela">
+        <div class="section-header">
+            <p class="section-eyebrow">My Brand</p>
+            <h2 class="section-title"><span class="accent">Moonela</span></h2>
+            <p class="section-subtitle">Premium DTC jewelry brand built from scratch. Full ownership from product to customer.</p>
+        </div>
+        <div class="project">
+            <div class="project-header">
+                <span class="project-tag">DTC Jewelry — Founder</span>
+                <h3 class="project-title">Full-Stack Brand Building</h3>
+                <p class="project-description">Built from A to Z: model shoots, UX design, branding, UGC creatives, Facebook Ads, organic Instagram/TikTok. Mixed strategies: UGC creators + professional models + brand ambassadors + AI enhancement.</p>
+                <a href="https://www.moonela.com" target="_blank" class="btn btn-primary" style="margin-top: 32px;">Visit Moonela.com <i class="fas fa-arrow-right"></i></a>
+                <div class="project-hero-image"><iframe src="https://drive.google.com/file/d/1la4_5qtunny5IOlXWSPpeEG8hWdEV1DG/preview" allow="autoplay"></iframe></div>
             </div>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px; margin-bottom: 40px;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">Perfect Alignment with OnBuy</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 25px;">
-                    My profile is strongly aligned with what you look for in a senior e-commerce and performance focused role at OnBuy:
-                </p>
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 16px;">
-                        <span style="color: #00d4ff; margin-right: 10px;">✓</span>
-                        Ownership of the full e-commerce funnel, from traffic and acquisition to onsite conversion, average order value and repeat purchases.
-                    </li>
-                    <li style="padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 16px;">
-                        <span style="color: #00d4ff; margin-right: 10px;">✓</span>
-                        Deep Shopify and DTC background, including store builds, CRO, landing pages, A/B testing, funnel design and performance analysis with tools like Google Analytics.
-                    </li>
-                    <li style="padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 16px;">
-                        <span style="color: #00d4ff; margin-right: 10px;">✓</span>
-                        Strong understanding of paid media across multiple platforms and how to orchestrate those channels to achieve specific revenue and margin goals.
-                    </li>
-                    <li style="padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 16px;">
-                        <span style="color: #00d4ff; margin-right: 10px;">✓</span>
-                        Experience working closely with founders and leadership teams to turn commercial objectives into clear roadmaps, campaigns and experiments.
-                    </li>
-                    <li style="padding: 15px 0; color: rgba(255,255,255,0.8); line-height: 1.8; font-size: 16px;">
-                        <span style="color: #00d4ff; margin-right: 10px;">✓</span>
-                        Ability to brief, challenge and manage agencies, freelancers and content creators while staying focused on performance and ROI.
-                    </li>
-                </ul>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px; margin-bottom: 40px;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">Proven Track Record</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    In previous roles I have helped brands generate several million in online revenue by improving their acquisition strategy and their onsite experience. This includes increasing conversion rates through structured testing on product pages and landing pages, designing bundles and offers, optimising email flows and retention, and building performance dashboards that allow faster and better decisions.
-                </p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px; margin-bottom: 40px;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">My Unique Differentiators</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    What differentiates me is my adaptability and resilience. I have been self-employed for most of my career, so I am used to taking responsibility, dealing with uncertainty and learning fast when something is new. If there is an area I do not fully master yet, I am able to study it intensively, often in one evening, and apply it directly in a way that delivers results. I have done this many times in the past when new platforms, formats or constraints appeared in e-commerce and digital marketing.
-                </p>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    I also have a deep and global understanding of e-commerce as a business, not only as a marketing channel. I think in terms of P&L, unit economics, cash flow and lifetime value, and I always try to connect marketing initiatives to the actual impact on revenue and profit. Having run my own brands, I know how important it is to balance growth ambitions with sustainable economics.
-                </p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px; margin-bottom: 40px;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">AI & Future-Ready Approach</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    On top of that, I have a strong understanding of how artificial intelligence is transforming e-commerce, business and the wider economy. I use AI tools every day in my work, including ChatGPT, Claude, Gemini and more specialised products such as ToolScale and Higgsfield, each chosen for a specific use case.
-                </p>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    I know how to integrate AI into business processes in a pragmatic way, whether it is for research, content and creative generation, building landing pages, analysing performance or automating repetitive tasks, while keeping clear human control over strategy and quality. In e-commerce I combine these AI tools with specialist platforms like Minea, PiPiAds and other analytics and product research tools to identify opportunities, winning creatives and growth levers much faster.
-                </p>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 50px;">
-                <h3 style="font-size: 28px; color: #00d4ff; margin-bottom: 25px; font-weight: 600;">Remote Work & Location Flexibility</h3>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px; margin-bottom: 20px;">
-                    Remote work fits me perfectly. I have worked this way for years with international clients and teams, and I am comfortable communicating asynchronously, documenting decisions and keeping alignment without needing constant meetings. At the same time, I am based in Manchester and can travel when needed for key workshops or team sessions.
-                </p>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.9; font-size: 17px;">
-                    I am very excited about the opportunity to contribute to OnBuy. I believe there is a strong opportunity for a customer-centric marketplace alternative in the UK and beyond, and I would be keen to bring my experience in performance marketing, DTC and e-commerce strategy, combined with my practical use of AI, to help OnBuy grow traffic, improve conversion across key categories and create better journeys for both buyers and sellers.
-                </p>
-            </div>
-
-            <!-- Contact Buttons -->
-            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 60px; flex-wrap: wrap;">
-                <a href="tel:07378979971" style="background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%); color: #fff; padding: 18px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,212,255,0.3);">
-                    📞 Call Me: 07378979971
-                </a>
-                <a href="mailto:kevincleonis@icloud.com" style="background: transparent; color: #fff; padding: 18px 40px; border-radius: 50px; font-size: 18px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: all 0.3s ease; border: 2px solid rgba(0,212,255,0.5);">
-                    ✉️ Email Me
-                </a>
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight"><p class="highlight-title">📸 Creative Production</p><p class="highlight-text">Professional shoots, UGC creators, ambassadors, AI-enhanced visuals.</p></div>
+                    <div class="highlight"><p class="highlight-title">🎯 Multi-Channel</p><p class="highlight-text">Facebook Ads, Instagram organic, TikTok, ambassador program.</p></div>
+                    <div class="highlight"><p class="highlight-title">🛒 Full E-commerce</p><p class="highlight-text">Shopify design, UX optimization, conversion-focused pages.</p></div>
+                    <div class="highlight"><p class="highlight-title">🤖 AI Workflow</p><p class="highlight-text">AI for photo enhancement and creative testing optimization.</p></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Moonela Photoshoot — Shot by Me</p>
+                    <p class="media-description">I personally shot all the product and lifestyle photography for Moonela using my Sony A7CII + 50mm lens. Full creative control from concept to final edit — for homepage visuals and product pages.</p>
+                    <div class="carousel" style="grid-template-columns: 1fr 1fr;">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1sIhIcXcJCA2Ru9r_eDZPOejdTqEo_s9C/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1cPjR1kFZCI_PVuzwt6kIwNHrPIvGHVOe/preview"></iframe></div>
+                    </div>
+                    <div class="media-wrapper" style="margin-top: 24px;"><div class="video-container"><iframe src="https://drive.google.com/file/d/1Cwe01I-P8dY97U_s61Amduu-ynpXiZlN/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Website Tour</p>
+                    <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1GdJ5R1bVx1HxSULc1rK61MZfGUQqAEs4/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Ad Creatives</p>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1ATkFv2FejAa9goiBoZeAwDm5x1pSfbPW/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1HNfnJPnHMKuTO9p9A7D-ZgcWd4_JAK7Q/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1zO73UDfBwxdMkvTg0w1HjxLFkAgLAcOJ/preview"></iframe></div>
+                    </div>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1XAB4_0B2Hh1Qz2PphhY-P5TioNY9LFkG/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1DhhWkq6b1z08vaQdnMh8R2HST3oUmA5u/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1QkMSppMcMOByV9kv6L6AwFgdbk3j1zHJ/preview"></iframe></div>
+                    </div>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1T1y-ccOp8Bof3tXlUrvD-ct3orKi4vL6/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1bHiEwEQklQ5nc14_tzn_KQK2rr2M5qo5/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1wJGZBlimnJuWekND1I2mnB_H6HE4HCL4/preview"></iframe></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- TAPED -->
+    <section class="section section-white" id="taped">
+        <div class="section-header">
+            <p class="section-eyebrow">My Brand</p>
+            <h2 class="section-title"><span class="accent">Taped</span></h2>
+            <p class="section-subtitle">Vitamin patches: hair growth, testosterone, energy. AI-first testing strategy.</p>
+        </div>
+        <div class="project">
+            <div class="project-header">
+                <span class="project-tag">Vitamin Patches — Founder</span>
+                <h3 class="project-title">AI-First Testing Strategy</h3>
+                <p class="project-description">Testing creative angles with AI before committing UGC budget. If tests validate, hire UGC creators for winning angles. All product photography with Sony A7CII + 50mm lens.</p>
+                <div class="project-hero-image"><iframe src="https://drive.google.com/file/d/1vU0aS7tw67ZGTAOQavrxvWCZVq06ky7W/preview" allow="autoplay"></iframe></div>
+            </div>
+            <div class="project-body">
+                <div class="highlights">
+                    <div class="highlight"><p class="highlight-title">📷 Professional Photography</p><p class="highlight-text">Sony A7CII + 50mm lens. Full control over visual identity.</p></div>
+                    <div class="highlight"><p class="highlight-title">🤖 AI-First Testing</p><p class="highlight-text">Validate angles with AI before investing in UGC creators.</p></div>
+                    <div class="highlight"><p class="highlight-title">⚡ Lean Validation</p><p class="highlight-text">AI testing → winning angles → UGC investment.</p></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">Website Tour</p>
+                    <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1W9ajDzZ6C18XgImr1Rq0seFbReBkCAsf/preview" allow="autoplay"></iframe></div></div>
+                </div>
+                <div class="media-block">
+                    <p class="media-label">AI Test Creatives</p>
+                    <div class="carousel">
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1t9Zk1GP1F9i-PDNvDfnrHXbRb_8W6Num/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1aLrQ0KEwcekLDh8u2pQ3WZD8cGa3ep8y/preview"></iframe></div>
+                        <div class="carousel-item"><iframe src="https://drive.google.com/file/d/1wmo492jcesyTHCS_utphsz0drf5jN8pD/preview"></iframe></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <p class="section-eyebrow">Business Growth</p>
+        <p class="testimonials-number">300+</p>
+        <h2 class="testimonials-title">Businesses <span class="accent">Transformed</span></h2>
+        <p class="testimonials-text">I've helped over 300 e-commerce businesses develop and optimize their marketing strategies on Shopify and social platform ads.</p>
+        <div class="testimonials-cards">
+            <div class="testimonials-card">
+                <p class="testimonials-card-title">🚀 Dropshipping A to Z</p>
+                <p class="testimonials-card-text">Product research, competitor analysis, store building, strategic marketing angles, ad creation, finding profitability, and scaling to consistent revenue.</p>
+            </div>
+            <div class="testimonials-card">
+                <p class="testimonials-card-title">📈 Established Brands</p>
+                <p class="testimonials-card-text">KPI analysis to identify improvement angles, optimizing conversion rates, refining ad strategies, and unlocking new growth levers.</p>
+            </div>
+        </div>
+        <div class="client-quotes">
+            <p class="media-label" style="margin-bottom: 40px; color: rgba(255,255,255,0.5);">What Clients Say</p>
+            <div class="quotes-grid">
+                <div class="quote-card">
+                    <p class="quote-name">Romuald</p>
+                    <p class="quote-revenue">€2M revenue</p>
+                    <p class="quote-text">"Kevin's marketing strategies are really precise. I loved working with him — he's very professional and results-driven."</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-name">Fancy</p>
+                    <p class="quote-revenue">€3M revenue</p>
+                    <p class="quote-text">"Working with Kevin was great. He understands the numbers and knows exactly how to scale. Super easy to communicate with."</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-name">Edouard</p>
+                    <p class="quote-revenue">€4M revenue</p>
+                    <p class="quote-text">"Kevin is one of the most focused marketers I've met. His strategy made a real impact on our sales. Highly recommended."</p>
+                </div>
+            </div>
+        </div>
+        <div class="media-wrapper"><div class="video-container"><iframe src="https://drive.google.com/file/d/1xDI-8yZwNvU_726MG1ZmgRKHFUZIZGju/preview" allow="autoplay"></iframe></div></div>
+        <a href="https://kevin-soze-95fa217bd585a49ca86f25f3b7e3.webflow.io/temoignages" target="_blank" class="btn btn-primary" style="margin-top: 48px;"><i class="fas fa-play-circle"></i> Watch All Testimonials</a>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <p class="contact-eyebrow">Get in Touch</p>
+        <h2 class="contact-title">Let's Work <span class="accent">Together</span></h2>
+        <p class="contact-text">Ready to scale your e-commerce brand with proven strategies and growth marketing expertise.</p>
+        <div class="contact-buttons">
+            <a href="tel:07378979971" class="btn btn-primary"><i class="fas fa-phone"></i> 07378979971</a>
+            <a href="mailto:kevincleonis@icloud.com" class="btn btn-secondary"><i class="fas fa-envelope"></i> kevincleonis@icloud.com</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p class="footer-text">© 2025 Kevin Cleonis <span>·</span> Manchester, UK</p>
+    </footer>
 
     <script>
-        // Scroll progress indicator
         window.addEventListener('scroll', () => {
-            const scrollIndicator = document.getElementById('scrollIndicator');
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (window.scrollY / windowHeight) * 100;
-            scrollIndicator.style.width = scrolled + '%';
+            const progress = document.getElementById('progress');
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (window.scrollY / scrollHeight) * 100 + '%';
+            
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Accordion functionality
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // Close all accordion items
-                document.querySelectorAll('.accordion-item').forEach(i => {
-                    i.classList.remove('active');
-                });
-                
-                // Open clicked item if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
+        document.getElementById('navbarToggle').addEventListener('click', () => {
+            document.getElementById('navbarMenu').classList.toggle('open');
         });
 
-        // Navigation dots
+        document.querySelectorAll('.navbar-link, .navbar-cta').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('navbarMenu').classList.remove('open'));
+        });
+
         const sections = document.querySelectorAll('section[id]');
-        const navDots = document.querySelectorAll('.nav-dot');
-
-        // Smooth scroll to section
-        navDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const sectionId = dot.getAttribute('data-section');
-                const section = document.getElementById(sectionId);
-                section.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Update active dot on scroll
+        const navLinks = document.querySelectorAll('.navbar-link');
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
+                if (scrollY >= section.offsetTop - 200) current = section.getAttribute('id');
             });
-
-            navDots.forEach(dot => {
-                dot.classList.remove('active');
-                if (dot.getAttribute('data-section') === current) {
-                    dot.classList.add('active');
-                }
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
             });
         });
 
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .project, .skill, .highlight, .quote-card, .testimonials-card').forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            el.style.transitionDelay = (i % 6) * 0.1 + 's';
+            observer.observe(el);
         });
     </script>
 </body>
